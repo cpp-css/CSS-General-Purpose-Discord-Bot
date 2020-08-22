@@ -1,4 +1,3 @@
-const emojiRegex = require('emoji-regex');
 const { MessageCollecter } = require('Discord.js');
 
 let msgCollectorFilter = (newMsg, originalMsg) => {
