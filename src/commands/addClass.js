@@ -3,18 +3,20 @@ const classes = require("../objects/classes");
 module.exports = {
     description: "add classes",
     async execute(message, args) {
-        let getClass = args[0] + " " + args[1];
-
+        let getClass = (args[0] + " " + args[1]).toString();
+        console.log(getClass);
         let isClassWhitelisted = () => {
             classes.forEach(element => {
-                if (element == getClass) {
+                console.log(element);
+                console.log(getClass);
+                if (element === getClass) {
                     return true;
                 }
             })
             return false;
         }
 
-        if (isClassWhitelisted) {
+        if (isClassWhitelisted == true) {
             let doesRoleExist = message.guild.roles.cache.find(role => role.name === getClass);
             if (doesRoleExist) {
                 let doesUserHaveRole = message.member.roles.cache.find(role => role.name === getClass);
@@ -34,7 +36,7 @@ module.exports = {
                 })
                 .then(role => {
                     message.member.roles.add(role)
-                    let channelName = args[0].toLowerCase() + "-" + args[1].toLowerCase();
+                    let channelName = (args[0] + "-" + args[1]).toString().toLowerCase();
                     let getClassChannel = message.guild.channels.cache.find(channel => channel.name == channelName);
                     if (!getClassChannel) {
                         message.guild.channels.create(getClass, {
