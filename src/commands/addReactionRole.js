@@ -1,4 +1,3 @@
-const { MessageCollecter } = require('Discord.js');
 
 let msgCollectorFilter = (newMsg, originalMsg) => {
     if (newMsg.author.id === originalMsg.author.id) return false;
