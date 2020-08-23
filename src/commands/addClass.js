@@ -4,19 +4,16 @@ module.exports = {
     description: "add classes",
     async execute(message, args) {
         let getClass = (args[0] + " " + args[1]).toString();
-        console.log(getClass);
-        let isClassWhitelisted = () => {
-            classes.forEach(element => {
-                console.log(element);
-                console.log(getClass);
-                if (element === getClass) {
+        function isClassWhitelisted() {
+            for (let i = 0; i < classes.length; i++) {
+                if (classes[i] == getClass) {
                     return true;
                 }
-            })
+            }
             return false;
         }
 
-        if (isClassWhitelisted == true) {
+        if (isClassWhitelisted() == true) {
             let doesRoleExist = message.guild.roles.cache.find(role => role.name === getClass);
             if (doesRoleExist) {
                 let doesUserHaveRole = message.member.roles.cache.find(role => role.name === getClass);
@@ -27,7 +24,6 @@ module.exports = {
                     message.reply("you are now added to " + getClass + ".");
                 }
             } else {
-
                 message.guild.roles.create({
                     data: {
                         name: getClass,
