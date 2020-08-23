@@ -19,7 +19,7 @@ const admins = ["Mod", "E-Board"];
 
 client.on('ready', () => {
     console.log("Void is online.");
-    client.user.setActivity('with memes.', {type: 'PLAYING'});
+    client.user.setActivity('to your concerns ;)', {type: 'LISTENING'});
 })
 
 client.on('message', message => {
