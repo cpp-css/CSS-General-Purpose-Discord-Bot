@@ -15,11 +15,10 @@ for (const file of commands) {
 }
 
 const prefix = "!";
-const admins = ["Mod", "E-Board"];
+const admins = ["Mod", "E-Board", "Member"];
 
 client.on('ready', () => {
-    console.log("Void is online.");
-    client.user.setActivity('to your concerns ;)', {type: 'LISTENING'});
+    client.user.setActivity('your concerns ;)', {type: 'LISTENING'});
 })
 
 client.on('message', message => {
