@@ -22,6 +22,8 @@ let csvJson = () => {
     return result;
 }
 
+console.log(csvJson());
+
 client.commands = new Discord.Collection();
 const commands = fs.readdirSync('./src/commands')
     .filter(file => file.endsWith('.js'));

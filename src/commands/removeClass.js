@@ -1,16 +1,13 @@
-const classes = require("../objects/classes");
 
 module.exports = {
     description: "remove class",
-    async execute(message, args) {
+    async execute(message, args, admins, getClasses) {
         let getClass = args[0] + " " + args[1];
 
-        let isClassWhitelisted = () => {
-            classes.forEach(element => {
-                if (element == getClass) {
-                    return true;
-                }
-            })
+        function isClassWhitelisted() {
+            if (getClasses[getClass + "-1"]) {
+                return true;
+            }
             return false;
         }
 
