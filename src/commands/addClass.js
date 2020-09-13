@@ -1,14 +1,10 @@
-const classes = require("../objects/classes");
-
 module.exports = {
     description: "add classes",
-    async execute(message, args) {
+    async execute(message, args, admins, getClasses) {
         let getClass = (args[0] + " " + args[1]).toString();
         function isClassWhitelisted() {
-            for (let i = 0; i < classes.length; i++) {
-                if (classes[i] == getClass) {
-                    return true;
-                }
+            if (getClasses[getClass + "-1"]) {
+                return true;
             }
             return false;
         }
@@ -49,6 +45,8 @@ module.exports = {
                             ]
                         })
                         .then(async channel => {
+                            console.log(getClasses[getClass + "-1"]["CourseTitle"]);
+                            channel.setTopic(getClasses[getClass + "-1"]["CourseTitle"]);
                             let getCategory = message.guild.channels.cache.find(category => category.name == "Programming Help");
                             if (getCategory) {
                                 await channel.setParent(getCategory.id, { lockPermissions: false });
@@ -57,6 +55,7 @@ module.exports = {
                                     type: 'category',
                                 })
                                 .then(async category => {
+
                                     await channel.setParent(category.id, { lockPermissions: false });
                                 });
                             }

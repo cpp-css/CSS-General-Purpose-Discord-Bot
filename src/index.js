@@ -1,8 +1,28 @@
 const Discord = require("discord.js");
-const client = new Discord.Client({ partials: ['MESSAGE', 'REACTION']});
+const client = new Discord.Client();
 const fs = require("fs");
 
 require('dotenv').config();
+
+let csvJson = () => {
+    let data = fs.readFileSync(__dirname + "/data/f2020csc.csv", "utf8");
+    let lines = data.split("\n");
+    let result = [];
+    let headers = lines[0].split(",");
+    lines.map(function(line, indexLine) {
+        if (indexLine < 1) return;
+        var currentLine = line.split(",");
+        let obj = {};
+        headers.map(function(header, indexHeader) {
+            obj[header] = currentLine[indexHeader];
+        })
+        let mainKey = (currentLine[1] + " " + currentLine[2] + "-" + currentLine[3]).toString();
+        result[mainKey] = obj;
+    })
+    return result;
+}
+
+console.log(csvJson());
 
 client.commands = new Discord.Collection();
 const commands = fs.readdirSync('./src/commands')
@@ -18,6 +38,7 @@ const prefix = "!";
 const admins = ["Mod", "E-Board", "Member"];
 
 client.on('ready', () => {
+    console.log("Bot has been initialized . . .");
     client.user.setActivity('your concerns ;)', {type: 'LISTENING'});
 })
 
@@ -30,10 +51,9 @@ client.on('message', message => {
     for (commandFile of commands) {
         const fileName = commandFile.toLowerCase().split('.')[0];
         if (command == fileName) {
-            client.commands.get(fileName).execute(message, args, admins);
+            client.commands.get(fileName).execute(message, args, admins, csvJson());
         }
     }
 })
-
 
 client.login(process.env.TOKEN);
